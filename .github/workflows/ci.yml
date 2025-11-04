@@ -1,0 +1,36 @@
+# Nome do seu workflow
+name: CI Pipeline - Testes Node.js
+
+# Define quando o workflow deve rodar
+on:
+  # Dispara a pipeline em todo 'push' para a branch 'main'
+  push:
+    branches: [ main ]
+  # Permite rodar manualmente pela interface do GitHub
+  workflow_dispatch:
+
+# Define os "trabalhos" (jobs) que a pipeline executará / passo a passo da tarefa
+jobs:
+  # Nome do job 
+  build-e-testar:
+    # Define o ambiente onde o job rodará (um servidor do GitHub com Ubuntu)
+    runs-on: windows-latest
+
+    steps:
+      # 1. Baixa o seu código do repositório para o servidor
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      # 2. Configura o ambiente Node.js
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # Você pode usar a versão do Node que preferir
+
+      # 3. Instala as dependências do projeto
+      - name: Instalar dependências
+        run: npm install
+
+      # 4. Roda os testes (o requisito da Tarefa 01)
+      - name: Rodar os testes
+        run: npm run test
