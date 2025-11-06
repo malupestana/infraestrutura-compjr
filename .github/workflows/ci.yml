@@ -1,23 +1,21 @@
-# Nome do seu workflow
-name: CI Pipeline - Testes Node.js
+# Nome workflow
+name: CI/CD Pipeline - Teste e Deploy
 
 # Define quando o workflow deve rodar
 on:
-  # Dispara a pipeline em todo 'push' para a branch 'main'
+  # Dispara a pipeline em todo 'push' para a branch 'principal'
   push:
-    branches: [ main ]
-  # Permite rodar manualmente pela interface do GitHub
+    branches: [ principal ] 
   workflow_dispatch:
 
-# Define os "trabalhos" (jobs) que a pipeline executará / passo a passo da tarefa
+# Define os trabalhos que a pipeline executará
 jobs:
-  # Nome do job 
   build-e-testar:
-    # Define o ambiente onde o job rodará (um servidor do GitHub com Ubuntu)
+    # Define o ambiente onde o job rodará
     runs-on: windows-latest
 
     steps:
-      # 1. Baixa o seu código do repositório para o servidor
+      # 1. Baixa o código do repositório para o servidor
       - name: Checkout do código
         uses: actions/checkout@v4
 
@@ -25,12 +23,19 @@ jobs:
       - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20' # Você pode usar a versão do Node que preferir
+          node-version: '20'
 
       # 3. Instala as dependências do projeto
       - name: Instalar dependências
         run: npm install
 
-      # 4. Roda os testes (o requisito da Tarefa 01)
+      # 4. Roda os testes 
       - name: Rodar os testes
         run: npm run test
+
+      # 5. Disparar Deploy no Render 
+      - name: Disparar Deploy no Render
+        if: success()
+        run: |
+          curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
+
