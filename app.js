@@ -3,7 +3,7 @@ const app = express();
 const port = 3000;
 
 app.get('/', (req, res) => {
-  res.status(200).send('Olá, Mundo!');
+  res.status(200).send('Deu certo!');
 });
 
 // Este 'if' evita que o app inicie durante os testes
