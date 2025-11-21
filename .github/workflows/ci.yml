@@ -32,14 +32,15 @@ jobs:
 
       # 3. Instalar dependências
       - name: Instalar dependências
-        run: npm install
+        run: npm ci
 
       # 4. Rodar os testes (JUnit)
       - name: Instalar JUnit Reporter
         run: npm install jest-junit --save-dev
       - name: Rodar os testes
-        run: npm run test -- --coverage --reporters=default --reporters=jest-junit
-
+        run: |
+          chmod +x node_modules/.bin/jest
+          npm run test -- --coverage --reporters=default --reporters=jest-junit
       # 5. Rodar Lint
       - name: Rodar Lint (ESLint)
         run: npm run lint
