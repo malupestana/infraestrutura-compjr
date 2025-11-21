@@ -38,7 +38,7 @@ jobs:
       - name: Instalar JUnit Reporter
         run: npm install jest-junit --save-dev
       - name: Rodar os testes
-        run: npm run test -- --reporters=default --reporters=jest-junit
+        run: npm run test -- --coverage --reporters=default --reporters=jest-junit
 
       # 5. Rodar Lint
       - name: Rodar Lint (ESLint)
@@ -46,7 +46,7 @@ jobs:
 
       # 6. Análise do SonarCloud (Atualizado para v6)
       - name: Análise SonarCloud
-        uses: SonarSource/sonarqube-scan-action@master
+        uses: SonarSource/sonarqube-scan-action@135b4dd54902324dc23807212d26462740924718 # v5.0.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
