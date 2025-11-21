@@ -44,9 +44,9 @@ jobs:
       - name: Rodar Lint (ESLint)
         run: npm run lint
 
-      # 6. Análise do SonarCloud
+      # 6. Análise do SonarCloud (Atualizado para v6)
       - name: Análise SonarCloud
-        uses: SonarSource/sonarqube-scan-action@v4
+        uses: SonarSource/sonarqube-scan-action@v6.0.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -61,7 +61,7 @@ jobs:
     # 2. A branch for a 'principal'
     if: github.event_name == 'push' && github.ref == 'refs/heads/principal'
     
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
       # 1. Disparar o Deploy Hook
