@@ -3,7 +3,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.get('/', (req, res) => {
-  res.status(200).send('Deploy automático funcionando com sucesso!');
+  res.status(200).send('Deploy automático funcionando com sucesso e testada!');
 });
 
 // Este 'if' evita que o app inicie durante os testes
